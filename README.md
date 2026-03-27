@@ -1,50 +1,72 @@
-# EXP 6 : SPEECH RECOGNITION USING SCILAB
+## EXP 6 : Simulation of Multirate DSP using Decimation and Interpolation
 
-## AIM: 
+### AIM: 
 
-To perform and verify multirate DSP without function using SCILAB.
+To perform and verify multirate DSP without function using SCILAB .
 
-## APPARATUS REQUIRED: 
+### APPARATUS REQUIRED: 
 PC installed with SCILAB. 
 
-## PROGRAM : 
-```
+### PROGRAM : 
+```python
 clc;
+clear;
 close;
-n = 0:%pi/50:2*%pi;
-x = sin(%pi*n); 
-M=input('Enter the downsampling factor');
-L=input('Enter the upsampling factor');
+
+// Generate sinusoidal signal
+n = 0:%pi/20:2*%pi;
+x = sin(n);
+
+// Input factors
+M = input("Enter the Downsampling factor M = ");
+L = input("Enter the Upsampling factor L = ");
+
+// Downsampling
 downsampling_x = x(1:M:length(x));
-disp(x,'Input signal x(n)=');
-disp(downsampling_x,'Downsampled Signal');
-figure(1);
-subplot(2,1,1)
-plot2d3(1:length(x),x);
-xtitle('original singal')
-subplot(2,1,2)
-plot2d3(1:length(downsampling_x),downsampling_x);
-xtitle('Downsampled Signal by a factor of M');
-upsampling_x=[];
-for i=1:length(x)
-upsampling_x(1,L*i)=x(i);
+
+// Upsampling
+upsampling_x = zeros(1,length(x)*L);
+
+for i = 1:length(x)
+    upsampling_x((i-1)*L + 1) = x(i);
 end
-disp(x,'Input signal x(n)=');
-disp(upsampling_x,'Upsampled Signal');
-figure(2);
-subplot(2,1,1);
-plot2d3(x);
-title('original signal');
-subplot(2,1,2);
-plot2d3(upsampling_x);
-title('Upsampled Signal by a factor of L');
+
+disp("Input Signal x(n) = ");
+disp(x);
+
+disp("Downsampled Signal = ");
+disp(downsampling_x);
+
+disp("Upsampled Signal = ");
+disp(upsampling_x);
+
+figure();
+
+subplot(3,1,1)
+plot2d3(n,x)
+xlabel("n")
+ylabel("Amplitude")
+title("Original Sinusoidal Signal")
+
+subplot(3,1,2)
+plot2d3(1:length(downsampling_x),downsampling_x)
+xlabel("n")
+ylabel("Amplitude")
+title("Downsampled Signal")
+
+subplot(3,1,3)
+plot2d3(1:length(upsampling_x),upsampling_x)
+xlabel("n")
+ylabel("Amplitude")
+title("Upsampled Signal")
 ```
-## OUTPUT: 
-<img width="1033" height="590" alt="image" src="https://github.com/user-attachments/assets/16ea0cb7-6104-4c4d-a4fd-c352624acdf3" />
-
-<img width="1018" height="578" alt="image" src="https://github.com/user-attachments/assets/5fc1c636-5405-4992-b66b-0ec4d809cad6" />
 
 
-## RESULT: 
+### OUTPUT: 
+<img width="484" height="437" alt="image" src="https://github.com/user-attachments/assets/2fb57f3f-6df8-4c95-aac1-7c9a1f0e1ffb" />
+<img width="475" height="404" alt="image" src="https://github.com/user-attachments/assets/aa34365e-4004-4ad2-93a3-5197bd1713b6" />
+
+
+### RESULT: 
 Thus the decimation process by a factor M and interpolation process by a factor L using 
 SCILAB was implemented. 
